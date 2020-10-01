@@ -1,4 +1,5 @@
 import 'package:books/constants.dart';
+import 'package:books/screens/details_screen.dart';
 import 'package:books/widgets/book_rating.dart';
 import 'package:books/widgets/reading_list_card.dart';
 import 'package:books/widgets/two_side_rounded_button.dart';
@@ -10,90 +11,185 @@ class HomeScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            alignment: Alignment.topCenter,
-            fit: BoxFit.fitWidth,
-            image: AssetImage("assets/images/main_page_bg.png"),
-          ),
-        ),
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: size.height * .1,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: RichText(
-                text: TextSpan(
-                  style: Theme.of(context).textTheme.headline4,
-                  children: [
-                    TextSpan(text: "What are you\nreading "),
-                    TextSpan(
-                        text: "today?",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                  ],
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  alignment: Alignment.topCenter,
+                  fit: BoxFit.fitWidth,
+                  image: AssetImage("assets/images/main_page_bg.png"),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  ReadingListCard(
-                    title: "Crushing & Influence",
-                    author: "Gary Venchunk",
-                    image: "assets/images/book-1.png",
-                    rating: 4.9,
+                  SizedBox(
+                    height: size.height * .1,
                   ),
-                  ReadingListCard(
-                    title: "Top Ten Businnes Hack",
-                    author: "Herman Joel ",
-                    image: "assets/images/book-2.png",
-                    rating: 4.8,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: RichText(
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.headline4,
+                        children: [
+                          TextSpan(text: "What are you\nreading "),
+                          TextSpan(
+                              text: "today?",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                    ),
                   ),
                   SizedBox(
-                    width: 30,
+                    height: 30,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: <Widget>[
+                        ReadingListCard(
+                          title: "Crushing & Influence",
+                          author: "Gary Venchunk",
+                          image: "assets/images/book-1.png",
+                          rating: 4.9,
+                          pressDetail: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return DetailsScreen();
+                              }),
+                            );
+                          },
+                        ),
+                        ReadingListCard(
+                          title: "Top Ten Businnes Hack",
+                          author: "Herman Joel ",
+                          image: "assets/images/book-2.png",
+                          rating: 4.8,
+                        ),
+                        SizedBox(
+                          width: 30,
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                              style: Theme.of(context).textTheme.headline4,
+                              children: [
+                                TextSpan(text: "Best of "),
+                                TextSpan(
+                                  text: "day",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ]),
+                        ),
+                        bestOfTheDayCard(size, context),
+                        RichText(
+                          text: TextSpan(
+                            style: Theme.of(context).textTheme.headline4,
+                            children: [
+                              TextSpan(text: "Contine "),
+                              TextSpan(
+                                  text: "reading...",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          height: 80,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(38.5),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 10),
+                                blurRadius: 33,
+                                color: Color(0xFFD3D3D3).withOpacity(.84),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(38.5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.only(left: 30, right: 20),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                "Crushing & Influence",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Gary Venchuk",
+                                                style: TextStyle(
+                                                  color: primaryColor,
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment:
+                                                    Alignment.bottomRight,
+                                                child: Text(
+                                                  "Chapter 7 of 10",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    color: secondaryColor,
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(height: 5)
+                                            ],
+                                          ),
+                                        ),
+                                        Image.asset("assets/images/book-1.png")
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: 7,
+                                  width: size.width * .65,
+                                  decoration: BoxDecoration(
+                                    color: progressIndicatorColor,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 40)
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.headline4,
-                        children: [
-                          TextSpan(text: "Best of "),
-                          TextSpan(
-                            text: "day",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ]),
-                  ),
-                  bestOfTheDayCard(size, context),
-                  RichText(
-                    text: TextSpan(
-                      style: Theme.of(context).textTheme.headline4,
-                      children: [
-                        TextSpan(text: "Contine"),
-                        TextSpan(text: "reading..."),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            )
           ],
         ),
       ),
@@ -109,6 +205,7 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           Positioned(
             left: 0,
+            right: 0,
             bottom: 0,
             child: Container(
               padding: EdgeInsets.only(
